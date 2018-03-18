@@ -4,7 +4,7 @@
 
 ### NOTE: SEE *PERMISSIONS* SECTION BELOW FOR IMPORTANT INFORMATION ABOUT THE CODE!
 
-The Broken Arrow Bot ([@brokenarrowbot](https://twitter.com/brokenarrowbot)) uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (fireball, overpressure, thermal radiation, etc). All of this information is then used to generate an image and text describing the Broken Arrow event, which is then posted to Twitter (example below).
+The Broken Arrow Bot ([@brokenarrowbot](https://twitter.com/brokenarrowbot)) uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (fireball, overpressure, thermal radiation, etc). All of this information is then used to generate an image and text describing the Broken Arrow event, which is then posted to Twitter.
 
 <img src="images/broken-arrow-tweet.png" width="400px;"/>
 
@@ -18,11 +18,11 @@ The idea to build a Twitter bot about nuclear weapons was heavily inspired by th
 
 ### HOW DOES IT WORK?
 
-The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp) to create a composite image of stacked layers. It relies on the Mapbox Static API to both generate a [satellite image](https://www.mapbox.com/api-documentation/#maps) as a base layer and create a minimap with a higlighted location using a [custom marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style). Additional masks, icons and text are dynamically layered to build up a final composite image.
+The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp) to create a composite image of stacked layers. The result is an image that shows a satellite image of a random location with information about a nuclear weapon and the size of its blast effects. 
 
 ![](images/broken-arrow-image.png)
 
-The breakdown below shows how the composite image is created by sequentially layering a stack of images/icons/text, all combined using Jimp.
+It relies on the Mapbox Static API to both generate a [satellite image](https://www.mapbox.com/api-documentation/#maps) as a base layer and create a minimap with a higlighted location using a [custom marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style). Additional masks, icons and text are dynamically layered to build up a final composite image.
 
 ![](images/broken-arrow-breakdown.png)
 
