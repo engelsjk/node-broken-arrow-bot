@@ -30,21 +30,13 @@ And finally, the entire Node.js project was uploaded to AWS Lambda for full Twit
 
 ### PERMISSIONS
 
-In my rush to make-an-idea-happen, I never stopped to think about asking permission to use two resources that this bot relies on. Specifically, I had used a very complex nuclear effects calculation script (nukeeffects.js) and an undocumented API for estimating nuclear blast casaulties, both of which are resources of the NUKEMAP web app. 
+In my rush to build this project, I never stopped to think about asking permission to use two resources that this bot relies on. Specifically, I had used a complex nuclear effects calculation script (nukeeffects.js) and an undocumented API for estimating nuclear blast casaulties, both of which are resources of the NUKEMAP website. 
 
-I've reached out to the author of NUKEMAP, [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), asking for his permission to use either the code or the API resource, but I did not receive a response. Therefore, I decided to disable the Twitter bot. Lesson learned! 
+I reached out to the author of NUKEMAP, [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), asking for his permission to use these resources, but I have not received a response. Therefore, I've disabled the Twitter bot to err on the side of caution in regards to using unlicensed code. But valuable lesson learned!     
 
-In the code hosted on this repo, I've .gitignore'd the nukeeffects.js library and disabled the request calls to the API resource. If you want to actually run this code locally (with the Tweeting disabled), you'll need to get the nukeeffects.js library from the NUKEMAP website and add it to a 'js' folder, making the below edits to the .js file.
+In the code hosted on this repo, I've .gitignore'd the nukeeffects.js library and disabled the request calls to the API resource. Instead, I've just used hardcoded values for the nuclear blast effects in order to still generate a final image.
 
-~~~~
-//var bc = new NukeEffects();
-
-module.exports = {
-	NukeEffects: NukeEffects
-};
-~~~~
-
-Also, you'll need to add a config.js file that exports all of your own token keys. If you don't plan on tweeting, you can skip the Twitter tokens but you'll need your own [Mapbox token](https://www.mapbox.com/help/how-access-tokens-work/).
+Also, you'll need to add a config.js file with your own token keys for Twitter and Mapbox. If you don't plan on tweeting, you can skip the Twitter tokens but you'll need your own [Mapbox token](https://www.mapbox.com/help/how-access-tokens-work/) to use the Mapbox Static API.
 
 ~~~~
 module.exports = {
@@ -56,7 +48,7 @@ module.exports = {
 }
 ~~~~
 
-### WHAT IS A BROKEN ARROW?
+### SO WHAT IS A BROKEN ARROW?
 
 The [Department of Defense Manual 3150.08-M](http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/315008m.pdf) defines 'Broken Arrow' as...
 
