@@ -6,12 +6,12 @@
 
 ### BROKEN ARROW BOT
 
-![](twitter-profile.png)
+<img src="images/twitter-profile.png" style="width: 200px;"/>
 [@brokenarrowbot](https://twitter.com/brokenarrowbot)
 
 The bot uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (overpressure, thermal radiation, etc). All of this information is used to generate an image and text that is then tweeted out by the bot.
 
-![](broken-arrow-tweet.png)
+![](images/broken-arrow-tweet.png =250x)
 
 ### HOW DOES IT WORK?
 
