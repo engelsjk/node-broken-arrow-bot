@@ -60,8 +60,10 @@ var minimap_icon_url = '[CUSTOM_MARKER_URL]'
 ~~~~
 You'll need to set your own [Mapbox map style (or use a template)](https://www.mapbox.com/help/studio-manual-styles/) and a custom marker URL if needed. The current marker URL is hosted on Imgur so you can leave that if you want.
 
-* Run the bot! 
-~~~~ node index.js ~~~~
+* Run the bot!
+~~~~
+node index.js
+~~~~
 
 ### SO WHAT IS A BROKEN ARROW?
 
