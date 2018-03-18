@@ -86,7 +86,7 @@ The [Department of Defense Manual 3150.08-M](http://www.esd.whs.mil/Portals/54/D
 
 ### TWITTER
 
-I curently follow a very interesting mix of nuclear nonprofileration, policy and anthropology experts on Twitter. Here's an incomplete list of people and organizations that I highly recommend checking out if you're interested in learning more!
+I currently follow a very interesting mix of nuclear nonprofileration, policy and anthropology experts on Twitter. Here's an incomplete list of people and organizations that I highly recommend checking out if you're interested in learning more!
 
 * [@wellerstein](https://twitter.com/wellerstein)
 * [@nuclearkatie](https://twitter.com/nuclearkatie)
