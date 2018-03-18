@@ -4,58 +4,35 @@
 
 ### NOTE: SEE *PERMISSIONS* SECTION BELOW FOR IMPORTANT INFORMATION ABOUT THE CODE!
 
-### BROKEN ARROW BOT
-
-<img src="images/twitter-profile.png" width="200px;"/>
-
-The Broken Arrow Bot ([@brokenarrowbot](https://twitter.com/brokenarrowbot)) uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (overpressure, thermal radiation, etc). All of this information is then used to generate an image and text describing the Broken Arrow event, which is then tweeted out by the bot (example below).
+The Broken Arrow Bot ([@brokenarrowbot](https://twitter.com/brokenarrowbot)) uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (fireball, overpressure, thermal radiation, etc). All of this information is then used to generate an image and text describing the Broken Arrow event, which is then posted to Twitter (example below).
 
 <img src="images/broken-arrow-tweet.png" width="400px;"/>
 
+### WHY DID YOU MAKE THIS?
+
+In the past year, I had my first ever nightmare about a nuclear apocalypse in my city. Surely a person in modern society doesn't worry about these things, I thought? And yet, the ever-present news of recent geopolitical events had found its way into my subconscious, causing me to experience real fear about the nuclear threat. If I was having these fears and dreams, surely others must be too?
+
+So I decided to channel that anxiety into learning more about nuclear weapons and create something that attempts to make them more real. They have an odd way of being both terrifying and yet unknowable, as if the scale of their danger is too great to fully grasp in the context of modern life. 
+
+The idea to build a Twitter bot about nuclear weapons was heavily inspired by the website [NUKEMAP](https://nuclearsecrecy.com/nukemap/), an interactive web map that shows the effects of various nuclear weapons on major cities around the world. Like the NUKEMAP, I hope that the Broken Arrow Bot helps people better understand what these weapons can do in the context of the world around them.  
+
 ### HOW DOES IT WORK?
 
-The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp). It relies on the Mapbox Static API to generate a [satellite imagery](https://www.mapbox.com/api-documentation/#maps) file for the baser layer and a [map image with a custom style and marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style) for a minimap. Other custom-made images, icons and text are dynamically layered to build up a final composite image.
+The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp) to create a composite image of stacked layers. It relies on the Mapbox Static API to both generate a [satellite image](https://www.mapbox.com/api-documentation/#maps) as a base layer and create a minimap with a higlighted location using a [custom marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style). Additional masks, icons and text are dynamically layered to build up a final composite image.
 
-![](broken-arrow-image.png)
+![](images/broken-arrow-image.png)
 
-The breakdown below shows the sequentially layered stack of images/icons/text, all combined using Jimp! 
+The breakdown below shows how the composite image is created by sequentially layering a stack of images/icons/text, all combined using Jimp.
 
 ![](images/broken-arrow-breakdown.png)
 
-### WHAT IS A BROKEN ARROW?
-
-The [Department of Defense Manual 3150.08-M](http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/315008m.pdf) defines 'Broken Arrow' as...
-
->"An unexpected event involving nuclear weapons or radiological nuclear weapon components that results in:
-><ul>
-><li>Accidental or unauthorized launching, firing, or use by U.S. forces or U.S.-supported allied
->forces of a nuclear-capable weapon system that could create the risk of an outbreak of war.</li>
-><li>Loss or destruction of a nuclear weapon or radiological nuclear weapon component,
->including jettisoning.</li>
-><li>An increase in the possibility of, or actual occurrence of, an explosion, a nuclear detonation,
->or radioactive contamination.</li>
-><li>Nonnuclear detonation or burning of a nuclear weapon or radiological nuclear weapon
->component.</li>
-><li>Public hazard, actual or implied.</li>
-><li>Any act of God, unfavorable environment, or condition resulting in damage to the weapon,
->facility, or component.</li>
-</ul>
-
-### INSPIRATION
-
-This project was inspired by the website [NUKEMAP](https://nuclearsecrecy.com/nukemap/), an interactive web map that shows the effects of various nuclear weapons on major cities around the world. 
-
-![](images/nukemap.png)
-
-Created by [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), a science and nuclear weapons historian and assistant professor, NUKEMAP is one of the few resources I've found online that is aimed at showing people the real world impact of nuclear weapons. 
-
-I created Broken Arrow Bot partly to teach myself more about how NUKEMAP works, but also partly to try and make nuclear weapons, and their sense of scale and destruction, a little less arcane. 
+And finally, the entire Node.js project was uploaded to AWS Lambda for full Twitter bot functionality.
 
 ### PERMISSIONS
 
 In my rush to make-an-idea-happen, I never stopped to think about asking permission to use two resources that this bot relies on. Specifically, I had used a very complex nuclear effects calculation script (nukeeffects.js) and an undocumented API for estimating nuclear blast casaulties, both of which are resources of the NUKEMAP web app. 
 
-I've reached out to Dr. Wellerstein asking for his permission to use either the code or the API resource, but I did not receive a response. Therefore, I decided to disable the Twitter bot because it didn't feel ethical to continue running it without permission to use those two resources that were fundamental parts of the bot. 
+I've reached out to the author of NUKEMAP, [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), asking for his permission to use either the code or the API resource, but I did not receive a response. Therefore, I decided to disable the Twitter bot. Lesson learned! 
 
 In the code hosted on this repo, I've .gitignore'd the nukeeffects.js library and disabled the request calls to the API resource. If you want to actually run this code locally (with the Tweeting disabled), you'll need to get the nukeeffects.js library from the NUKEMAP website and add it to a 'js' folder, making the below edits to the .js file.
 
@@ -79,9 +56,28 @@ module.exports = {
 }
 ~~~~
 
+### WHAT IS A BROKEN ARROW?
+
+The [Department of Defense Manual 3150.08-M](http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/315008m.pdf) defines 'Broken Arrow' as...
+
+>"An unexpected event involving nuclear weapons or radiological nuclear weapon components that results in:
+><ul>
+><li>Accidental or unauthorized launching, firing, or use by U.S. forces or U.S.-supported allied
+>forces of a nuclear-capable weapon system that could create the risk of an outbreak of war.</li>
+><li>Loss or destruction of a nuclear weapon or radiological nuclear weapon component,
+>including jettisoning.</li>
+><li>An increase in the possibility of, or actual occurrence of, an explosion, a nuclear detonation,
+>or radioactive contamination.</li>
+><li>Nonnuclear detonation or burning of a nuclear weapon or radiological nuclear weapon
+>component.</li>
+><li>Public hazard, actual or implied.</li>
+><li>Any act of God, unfavorable environment, or condition resulting in damage to the weapon,
+>facility, or component.</li>
+</ul>
+
 ### TWITTER
 
-I follow a rather large community of nuclear nonprofileration/policy experts on Twitter. Here's an incomplete list of people and organizations that I highly recommend checking out if you're interested in learning more!
+I curently follow a very interesting mix of nuclear nonprofileration, policy and anthropology experts on Twitter. Here's an incomplete list of people and organizations that I highly recommend checking out if you're interested in learning more!
 
 * [@wellerstein](https://twitter.com/wellerstein)
 * [@nuclearkatie](https://twitter.com/nuclearkatie)
@@ -96,3 +92,5 @@ I follow a rather large community of nuclear nonprofileration/policy experts on 
 * [@kelseydav](https://twitter.com/KelseyDav)
 * [@bulletinatomic](https://twitter.com/BulletinAtomic)
 * [@armscontrolwonk](https://twitter.com/ArmsControlWonk)
+
+<img src="images/twitter-profile.png" width="200px;"/>
