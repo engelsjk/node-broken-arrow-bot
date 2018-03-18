@@ -31,19 +31,11 @@ function nuke(tweet_enabled){
     var blast = new b.Blast(payload.yield);
     blast.launchRandom();
 
-    var blast_radii = {
-        "1": blast.fireball_radius,
-        "2": blast.range_from_20psi_hob,
-        "3": blast.initial_nuclear_radiation_distance,
-        "4": blast.range_from_5psi_hob,
-        "5": blast.thermal_distance
-    };
-
     ///////////////////////////////
     // * CASAULTY */
 
     var casaulty = new c.Casaulty();
-    //casaulty.getData(latlng, blast);
+    casaulty.getData(latlng, blast);
 
     ///////////////////////////////
     // * MESSAGE */
@@ -63,9 +55,8 @@ function nuke(tweet_enabled){
     image.setLocation(location);
     image.setMessage(message);
 
-    image.setCoordinatesAndBlastRadii(latlng, blast_radii);
+    image.setCoordinatesAndBlast(latlng, blast);
     image.getMap();
-
     
     ///////////////////////////////
     // * DEBUG */

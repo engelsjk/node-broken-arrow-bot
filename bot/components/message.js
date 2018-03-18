@@ -25,7 +25,7 @@ function Message () {
         consumer_secret:      config['twitter_consumer_secret'],
         access_token:         config['twitter_access_token'],
         access_token_secret:  config['twitter_access_token_secret'],
-        timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
+        timeout_ms:           60*1000
     })
 
 }
@@ -112,7 +112,6 @@ function sendTweet(T, b64content, msg_a, msg_l1){
 }
 
 function getTimestamp(){
-    // DTG - DDHHMM(Z)MONYY
     var now = moment().utc();
     var timestamp = now.format('DDHHmm') + 'Z' + now.format('MMMYY').toUpperCase();
     return timestamp;

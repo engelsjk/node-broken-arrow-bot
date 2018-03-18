@@ -11,7 +11,7 @@ function Image () {
 
     this.access_token = config['mapbox_token'];
     this.getMap = getMap;
-    this.setCoordinatesAndBlastRadii = setCoordinatesAndBlastRadii;
+    this.setCoordinatesAndBlast = setCoordinatesAndBlast;
     this.setPayload = setPayload;
     this.setBlast = setBlast;
     this.setCasaulty = setCasaulty;
@@ -19,7 +19,7 @@ function Image () {
     this.setMessage = setMessage;
 
     this.C = 40075017; // Earth circumference [m]
-    this.mi2m = 1609.344; // miles to meters
+    this.mi2m = 1609.344; // miles to meters conversion
 
     this.latlng = null;
     this.payload = null;
@@ -113,10 +113,16 @@ function Image () {
     };
 }
 
-function setCoordinatesAndBlastRadii (latlng, blast_radii){
+function setCoordinatesAndBlast (latlng, blast){
     var that = this;
     that.latlng = latlng;
-    that.blastimages.blast_radii = blast_radii;
+    that.blastimages.blast_radii = {
+        "1": blast.fireball_radius,
+        "2": blast.range_from_20psi_hob,
+        "3": blast.initial_nuclear_radiation_distance,
+        "4": blast.range_from_5psi_hob,
+        "5": blast.thermal_distance
+    };
     getZoomLevel(that);
 }
 
@@ -145,6 +151,7 @@ function setMessage(message){
     that.message = message;
 }
 
+// getMap() saves a satellite image from the Mapbox Static API.
 function getMap() {
     var that = this;
 
@@ -153,7 +160,6 @@ function getMap() {
     const zoom = that.map.zoom;
     const imagesize = that.map.size + "x" + that.map.size;
 
-    // Mapbox Static API
     url = `https://api.mapbox.com/v4/mapbox.satellite/${lng},${lat},${zoom}/${imagesize}.png?access_token=${that.access_token}`;
 
     request(url, {encoding: 'binary'}, (err, res, body) => {
@@ -163,6 +169,8 @@ function getMap() {
     });
 }
 
+// getMinimap() saves a custom style map image from the Mapbox Static API 
+// using a custom marker url.
 function getMinimap(that){
 
     const dot_lat = that.latlng['lat'];
@@ -174,7 +182,6 @@ function getMinimap(that){
     const imagesize = that.minimap.size;
     const style = that.minimap.style;
 
-    // Mapbox Static API
     url = `https://api.mapbox.com/styles/v1/atthegate/${style}/static/url-${dot_url}(${dot_lng},${dot_lat})/${c_lng},${c_lat},${zoom},0.00,0.00/${imagesize}@2x?access_token=${that.access_token}`
 
     request(url, {encoding: 'binary'}, (err, res, body) => {
@@ -184,6 +191,8 @@ function getMinimap(that){
     });
 }
 
+// saveMap() loads the base image, adds multiple layers to 
+// a composite image and saves it, then prepares a message (tweet).
 function saveMap(that){
 
     jimp.read(that.map.filepath_i).then(function (image) {
@@ -191,46 +200,26 @@ function saveMap(that){
         var x = that.map.size / 2;
         var y = that.map.size / 2;
 
-         // Add Mask
-         addMask(that);
+        addMaskLayer(that);
 
-         // Add Minimap
-         addMinimap(that);
+        addMinimapLayer(that);
 
-         // Add Scale
-         addScale(that);
+        addDistanceScaleLayer(that);
 
-        // Add Payload
-        addPayload(that);
+        addPayloadLayer(that);
 
-        // Add Blast Image(s)
-        addBlastImage(that, "5", x, y);
-        addBlastImage(that, "4", x, y);
-        addBlastImage(that, "3", x, y);
-        addBlastImage(that, "2", x, y);        
-        addBlastImage(that, "1", x, y);
+        addBlastImageLayer(that, "5", x, y);
+        addBlastImageLayer(that, "4", x, y);
+        addBlastImageLayer(that, "3", x, y);
+        addBlastImageLayer(that, "2", x, y);        
+        addBlastImageLayer(that, "1", x, y);
 
-        // Add Text
-        addText(that);
-
-        var tmp_filename_vars = [
-            that.payload.triad, 
-            that.payload.platform, 
-            that.payload.weapon, 
-            that.payload.warhead,
-            that.blast.surface_airburst ? "airburst" : "surface",
-            that.blast.hob_ft.toFixed(0) + 'ft',
-            that.blast.kt.toFixed(0) + 'kt',
-            that.latlng['lat'].toFixed(3),
-            that.latlng['lng'].toFixed(3)
-        ];
-        var tmp_filename = tmp_filename_vars.join('_') + '.png';
+        addTextLayer(that);
 
         that.map.image.getBuffer(jimp.MIME_PNG, function(err, src){
             fs.writeFile(that.map.filepath_o, src, 'binary', (err) => {
                 if (err) throw err;
-                console.log('image-filesaved');
-                writeCallback(that);
+                prepareMessage(that);
             })
         });
         
@@ -239,11 +228,8 @@ function saveMap(that){
     });
 }
 
-function writeCallback(that){
-     // * MESSAGE * //
-    that.message.setImage(that);
-        
-    // *** SENDING TWEET *** //
+function prepareMessage(that){
+    that.message.setImage(that);     
     that.message.prepareTweet();
 }
 
@@ -251,11 +237,13 @@ function startImageProcessing(that){
     loadPlatformImage(that);
 }
 
-// * LOAD FUNCTIONS * //
+/////////////////////////////////
+// * IMAGE LOADING FUNCTIONS * //
 
 function loadPlatformImage(that){
     var platform = that.payload['platform'];
     var filepathname = 'assets/platform/' + platform + '.png'; 
+
     jimp.read(filepathname).then(function (image) {
         that.payloadimages.images['platform'] = image;
         loadWeaponImage(that);
@@ -267,6 +255,7 @@ function loadPlatformImage(that){
 function loadWeaponImage(that){
     var weapon = that.payload['weapon'];
     var filepathname = 'assets/weapon/' + weapon + '.png'; 
+
     jimp.read(filepathname).then(function (image) {
         that.payloadimages.images['weapon'] = image;
         loadWarheadImage(that);
@@ -278,6 +267,7 @@ function loadWeaponImage(that){
 function loadWarheadImage(that){
     var warhead = that.payload['warhead'];
     var filepathname = 'assets/warhead/' + warhead + '.png';
+
     jimp.read(filepathname).then(function (image) {
         that.payloadimages.images['warhead'] = image;
         loadBlastImages(that, 5, 1);
@@ -296,41 +286,41 @@ function loadBlastImages(that, index_max, index) {
         if (index <= index_max){
             loadBlastImages(that, index_max, index);
         } else {
-            loadMask(that);
+            loadMaskImage(that);
         }
     }).catch(function (err) {
         console.error(err);
     });
 }
 
-function loadMask(that){
+function loadMaskImage(that){
     jimp.read(that.mask.filepath).then(function (image) {
         that.mask.image = image;
-        loadMinimap(that);
+        loadMinimapImage(that);
     }).catch(function (err) {
         console.error(err);
     });
 }
 
-function loadMinimap(that){
+function loadMinimapImage(that){
     jimp.read(that.minimap.filepath).then(function (image) {
         that.minimap.image = image;
-        loadScale(that);
+        loadScaleImage(that);
     }).catch(function (err) {
         console.error(err);
     });
 }
 
-function loadScale(that){
+function loadScaleImage(that){
     jimp.read(that.scale.filepath).then(function (image) {
         that.scale.image = image;
-        loadText(that);
+        loadTextFont(that);
     }).catch(function (err) {
         console.error(err);
     });
 }
 
-function loadText(that){
+function loadTextFont(that){
     jimp.loadFont(that.font.filepath).then(function (font) {
         that.font.font = font;
         saveMap(that);
@@ -339,9 +329,10 @@ function loadText(that){
     });
 }
 
-// * ADDER FUNCTIONS */
+//////////////////////////////////
+// * ADD IMAGE/TEXT FUNCTIONS * //
 
-function addPayload(that) {
+function addPayloadLayer(that) {
 
     if(['b-52h', 'b-2'].includes(that.payload.platform)){
         // BOMBER - TOP-DOWN-HORIZONTAL
@@ -364,7 +355,7 @@ function addPayload(that) {
     }
 }
 
-function addBlastImage(that, index, x, y) {
+function addBlastImageLayer(that, index, x, y) {
 
     var m2p = 1 / getMetersPerPixelConversion(that.latlng['lat'], that.map.zoom, that.C);
     var wh = (that.blastimages.blast_radii[index]*2) * that.mi2m * m2p;
@@ -375,11 +366,11 @@ function addBlastImage(that, index, x, y) {
     that.map.image.composite( that.blastimages.images[index], x-w/2, y-h/2 );
 }
 
-function addMask(that){
+function addMaskLayer(that){
     that.map.image.composite( that.mask.image, 0, 0);
 }
 
-function addMinimap(that){
+function addMinimapLayer(that){
 
     that.minimap.image.resize(that.minimap.width, that.minimap.height);
     var x = that.map.size - that.minimap.width - (400 - that.minimap.width)/2;
@@ -387,7 +378,8 @@ function addMinimap(that){
     that.map.image.composite( that.minimap.image, x, y);
 }
 
-function addScale(that){
+// addScale() resizes and positions the map distance scale image.
+function addDistanceScaleLayer(that){
 
     var x = that.padding.horizontal_major;
 
@@ -399,7 +391,8 @@ function addScale(that){
     that.map.image.composite( that.scale.image, x, y);
 }
 
-function addText(that){
+// addText() formats and positions various text strings onto the composite image. 
+function addTextLayer(that){
 
     // COORDINATES
     var coords = that.latlng['lat'].toFixed(3) + ', ' + that.latlng['lng'].toFixed(3);
@@ -436,6 +429,7 @@ function addText(that){
     var n = 7;
     var y = that.map.size - (235 - n*(that.font.size + that.font.padding_vertical))/2 - n*(that.font.size + that.font.padding_vertical) + 1.5*that.font.padding_vertical;
 
+    // ADD TEXT TO COMPOSITE IMAGE
     that.map.image.print(that.font.font, x, y, blast_1);
     that.map.image.print(that.font.font, x, y + 1*(that.font.size+that.font.padding_vertical), blast_2);
     that.map.image.print(that.font.font, x, y + 2*(that.font.size+that.font.padding_vertical), blast_3);
@@ -445,18 +439,19 @@ function addText(that){
     that.map.image.print(that.font.font, x, y + 6*(that.font.size+that.font.padding_vertical), blast_7);
 }
 
+////////////////////////
 // * MISC FUNCTIONS * //
 
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
+// getMetersPerPixelConversion() calculates the meters per pixel conversion
+// for the Web Mercator projection.
 function getMetersPerPixelConversion(y, z, C) {
     var y_rad = y * Math.PI / 180;
     var S = C * Math.cos(y_rad) / Math.pow(2, (z + 8));
-    return S; // meters per pixel
+    return S; 
 }
 
+// getZoomLevel() iteratively finds the smallest zoom level 
+// of the map to encompass the largest blast radius.
 function getZoomLevel(that) {
     var arr = Object.keys(that.blastimages.blast_radii).map(function(key) {
         return that.blastimages.blast_radii[key];

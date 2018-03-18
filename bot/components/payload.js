@@ -64,6 +64,8 @@ function getYield() {
     }
 }
 
+// getDialAYield() generates a random yield within a 
+// discrete, linearly spaced min:max range.
 function getDialAYield(that) {
     var yield_min = that.warheads[that.warhead]['yield']['min'];
     var yield_max = that.warheads[that.warhead]['yield']['max'];
@@ -72,6 +74,8 @@ function getDialAYield(that) {
     addYieldDeviation(that);
 }
 
+// getEstimateYield() generates a random yield within a 
+// continuous min:max range.
 function getEstimateYield(that) {
     var yield_min = that.warheads[that.warhead]['yield']['min'];
     var yield_max = that.warheads[that.warhead]['yield']['max'];
@@ -79,6 +83,7 @@ function getEstimateYield(that) {
     addYieldDeviation(that);
 }
 
+// addYieldDeviation() adds a random deviation to the yield within a defined deviation percentage. 
 function addYieldDeviation(that){
     that.yield += that.yield * ((Math.random() < 0.5 ? -1 : 1) * (Math.random() * that.yieldDeviation));
 }

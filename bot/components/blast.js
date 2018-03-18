@@ -1,5 +1,6 @@
 // NOTE: nukeeffects-2.5.js not included in this repo! 
-// Unable to get permission from Alex Wellerstein of NUKEMAP to use non-licensed JavaScript code.
+// NOTE: Unable to get permission from Alex Wellerstein of NUKEMAP to use non-licensed JavaScript code.
+
 const n = require('../js/nukeeffects-2.5.js');
 var nukeeffects = new n.NukeEffects();
 
@@ -8,14 +9,15 @@ module.exports = {
 };
 
 function Blast (yield) {
-    this.mi2ft = 5280;
-    this.ft2mi = 1 / this.mi2ft;
+
+    this.mi2ft = 5280; // miles to feet conversion
+    this.psi5 = 5;     // fixed 5 psi
+    this.psi20 = 20;   // fixed 20 psi
+    this.rem = '500';  // fixed 500 rem radiation
+
+    this.ft2mi = 1 / this.mi2ft; // feet to miles conversion
 
     this.kt = yield;
-
-    this.psi5 = 5; 
-    this.psi20 = 20; 
-    this.rem = '500';
 
     this.hob_ft = null;
     this.hob_opt = null;
@@ -26,53 +28,49 @@ function Blast (yield) {
     this.getHeightOfBlast = getHeightOfBlast;
     this.getBlastResults = getBlastResults;
     this.printBlastResults = printBlastResults;
-
 }
 
 function launchRandom() {
-    //console.log('blast-launchrandom');
-    this.getBlastType();        // Surface OR Airburst
+    this.getBlastType();        // Surface [0] OR Airburst [1]
     this.getHeightOfBlast();    // Height of Burst [ft]
     this.getBlastResults();     // Burst Results (PSI range, radiation, thermal, fireball, crater)
 }
 
 function launchDefined(surface_airburst, hob_ft, hob_opt) {
-    //console.log('blast-launchdefined');
-    // surface_airburst --- 0 : Surface | 1 : Airburst
     this.surface_airburst = surface_airburst;
     this.airburst = this.surface_airburst ? true  : false;
     this.surface = !this.airburst;
-
-    // hob_ft --- ft
     this.hob_ft = hob_ft;
-
-    // hob_opt --- 0: Maximize for all effects | 1: Optimize for 5 psi
     this.hob_opt = hob_opt;
-
     this.getBlastResults();
 }
 
-function setYield (yield) {
+function setYield(yield) {
     this.kt = yield;
 }
 
-function getBlastType () {
-    // 0 : Surface | 1 : Airburst
+function getBlastType() {
     this.surface_airburst = Math.round(Math.random());
     this.airburst = this.surface_airburst ? true  : false;
     this.surface = !this.airburst;
 }
 
-function getHeightOfBlast () {
+// getHeightOfBlast() sets the nuclear blast height,
+// either on the surface or at a calculated height 
+// to optimize for a given blast PSI.
+function getHeightOfBlast() {
     this.hob_ft = this.surface_airburst ? nukeeffects.opt_height_for_psi(this.kt, this.psi5) : 0;
-    // 0: Maximize for all effects | 1: Optimize for 5 psi
-    this.hob_opt = Math.round(Math.random()); 
+    this.hob_opt = Math.round(Math.random()); // 0: Maximize for all effects | 1: Optimize for 5 psi
     this.hob_opt = this.surface_airburst ? this.hob_opt : 0;
     this.hob_ft = this.hob_opt === 0 ? 0 : this.hob_ft;
 }
 
-function getBlastResults () {
-    // PSI - 1.5 : windows breaking | 5 : houses crushed | 20 : most buildings destroyed
+
+// getBlastResults() calculates various nuclear blast estimates
+// using the NUKEMAP nukeeffects.js module.
+function getBlastResults() {
+
+    // 5 PSI
     if(this.airburst) {
         if(!this.hob_opt) {
             this.range_from_5psi_hob = nukeeffects.psi_distance(this.kt, this.psi5, this.airburst);
@@ -83,6 +81,7 @@ function getBlastResults () {
         this.range_from_5psi_hob = nukeeffects.range_from_psi_hob(this.kt, this.psi5, 0) * this.ft2mi;
     }
     
+    // 20 PSI
     if(this.airburst) {
         if(!this.hob_opt) {
             this.range_from_20psi_hob = nukeeffects.psi_distance(this.kt, this.psi20, this.airburst);
@@ -93,11 +92,7 @@ function getBlastResults () {
         this.range_from_20psi_hob = nukeeffects.range_from_psi_hob(this.kt, this.psi20, 0) * this.ft2mi;
     }
     
-    // REM
-    /*
-    REM - 500 : 50-90% mortality without medical care | 600 : 80% mortality with medical care
-          1000 : 95% mortality with medical care | 5000 : 100% mortality
-    */
+    // Radiation
     this.initial_nuclear_radiation_distance = nukeeffects.initial_nuclear_radiation_distance(this.kt, this.rem); // mile
     if(this.hob_ft && this.airburst) {
         this.initial_nuclear_radiation_distance = nukeeffects.ground_range_from_slant_range(this.initial_nuclear_radiation_distance, this.hob_ft * this.ft2mi);
@@ -113,7 +108,6 @@ function getBlastResults () {
     this.fireball_radius = nukeeffects.fireball_radius(this.kt, this.airburst); // mile
     
     // Crater
-    // [lip-radius, inside-radius, depth]
     this.crater = nukeeffects.crater(this.kt, true); // mile
 
 }
