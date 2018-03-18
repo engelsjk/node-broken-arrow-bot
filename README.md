@@ -6,7 +6,7 @@
 
 ### BROKEN ARROW BOT
 
-### HOW IT WORKS
+### HOW DOES IT WORK?
 
 The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp). It relies on the Mapbox Static API to generate a [satellite imagery](https://www.mapbox.com/api-documentation/#maps) file and a [map image with a custom style and marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style).
 
@@ -16,7 +16,7 @@ A random latitude/longitude coordinate in the continental United States is then 
 
 ![](images/broken-arrow-breakdown.png)
 
-### BROKEN ARROW
+### WHAT IS A BROKEN ARROW?
 
 The [Department of Defense Manual 3150.08-M](http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/315008m.pdf) defines 'Broken Arrow' as...
 
