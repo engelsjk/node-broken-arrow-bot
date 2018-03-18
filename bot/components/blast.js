@@ -27,13 +27,15 @@ function Blast (yield) {
     this.getBlastType = getBlastType;
     this.getHeightOfBlast = getHeightOfBlast;
     this.getBlastResults = getBlastResults;
+    this.getFakeBlastResults = getFakeBlastResults;
     this.printBlastResults = printBlastResults;
 }
 
 function launchRandom() {
-    this.getBlastType();        // Surface [0] OR Airburst [1]
-    this.getHeightOfBlast();    // Height of Burst [ft]
-    this.getBlastResults();     // Burst Results (PSI range, radiation, thermal, fireball, crater)
+    this.getBlastType();        
+    this.getHeightOfBlast();    
+    //this.getBlastResults();     
+    this.getFakeBlastResults();
 }
 
 function launchDefined(surface_airburst, hob_ft, hob_opt) {
@@ -110,6 +112,15 @@ function getBlastResults() {
     // Crater
     this.crater = nukeeffects.crater(this.kt, true); // mile
 
+}
+
+function getFakeBlastResults() {
+    this.fireball_radius = 0.25;
+    this.range_from_20psi_hob = 0.65;
+    this.initial_nuclear_radiation_distance = 1.15;
+    this.range_from_5psi_hob = 1.35;
+    this.thermal_distance = 2.5;
+    console.log('Warning! Blast results are fixed values and not representative of the actual yield or height of burst!')
 }
 
 function printBlastResults () {

@@ -30,7 +30,7 @@ function nuke(tweet_enabled){
     
     var blast = new b.Blast(payload.yield);
     blast.launchRandom();
-
+  
     ///////////////////////////////
     // * CASAULTY */
 
