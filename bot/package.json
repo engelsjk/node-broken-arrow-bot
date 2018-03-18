@@ -1,0 +1,24 @@
+{
+  "name": "node-broken-arrow-bot",
+  "version": "1.0.0",
+  "description": "A Twitter bot for generating random Broken Arrow nuclear events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Engelsman",
+  "license": "ISC",
+  "dependencies": {
+    "@turf/bbox": "6.0.0",
+    "@turf/boolean-point-in-polygon": "6.0.0",
+    "@turf/helpers": "6.0.1",
+    "jimp": "0.2.28",
+    "linspace": "1.0.0",
+    "mgrs": "1.0.0",
+    "moment": "2.20.1",
+    "request": "2.83.0",
+    "sync-request": "4.1.0",
+    "twit": "2.2.9",
+    "xml2js": "0.4.19"
+  }
+}

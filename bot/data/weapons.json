@@ -1,0 +1,98 @@
+{
+    "minuteman-iii": {
+        "name": "LGM-30G Minuteman III",
+        "type": "icbm",
+        "manufacturer": "boeing",
+        "total-count": 440,
+        "range": 13000,
+        "speed": 28176,
+        "warheads": [
+            "w87", "w78"
+        ],
+        "num-warheads": 1
+    },
+    "trident-ii-d5": {
+        "name": "UGM-133A Trident II D5",
+        "type": "icbm",
+        "manufacturer": "lockheed-martin",
+        "total-count": 288,
+        "range": 12000,
+        "speed": 29020,
+        "warheads": [
+            "w76-0", "w76-1", "w88"
+        ],
+        "num-warheads": 14
+    },
+    "alcm": {
+        "name": "AGM-86B",
+        "type": "air-launched cruise missile",
+        "manufacturer": "boeing",
+        "total-count": 200,
+        "range": 2400, 
+        "speed": 890,
+        "warheads": [
+            "w80-1"
+        ],
+        "num-warheads": 1
+    },
+    "b61-7": {
+        "name": "B61 Mod 7",
+        "type": "gravity bomb",
+        "manufacturer": "",
+        "total-count": null,
+        "range": null, 
+        "speed": null,
+        "warheads": [
+            "b61-7"
+        ],
+        "num-warheads": 1
+    },
+    "b61-11": {
+        "name": "B61 Mod 11",
+        "type": "gravity bomb",
+        "manufacturer": "",
+        "total-count": null,
+        "range": null,
+        "speed": null,
+        "warheads": [
+            "b61-11"
+        ],
+        "num-warheads": 1
+    },
+    "b83-1": {
+        "name": "B83 Mod 1",
+        "type": "gravity bomb",
+        "manufacturer": "",
+        "total-count": null,
+        "range": null,
+        "speed": null,
+        "warheads": [
+            "b83-1"
+        ],
+        "num-warheads": 1
+    },
+    "b61-3": {
+        "name": "B61 Mod 3",
+        "type": "gravity bomb",
+        "manufacturer": "",
+        "total-count": null,
+        "range": null,
+        "speed": null,
+        "warheads": [
+            "b61-3"
+        ],
+        "num-warheads": 1
+    },
+    "b61-4": {
+        "name": "B61 Mod 4",
+        "type": "gravity bomb",
+        "manufacturer": "",
+        "total-count": null,
+        "range": null,
+        "speed": null,
+        "warheads": [
+            "b61-4"
+        ],
+        "num-warheads": 1
+    }
+}

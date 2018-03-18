@@ -1,0 +1,90 @@
+{
+    "w87": {
+        "name": "W87 Mk21",
+        "yield": {
+            "min": 300,
+            "max": 475
+        },
+        "type": "estimated"
+    },
+    "w78": {
+        "name": "W78 Mk12A",
+        "yield": {
+            "min": 300,
+            "max": 335
+        },
+        "type": "estimated"
+    },
+    "w76-0": {
+        "name": "W76-0 Mk4",
+        "yield": {
+            "min": 100,
+            "max": 100
+        },
+        "type": "estimated"
+    },
+    "w76-1": {
+        "name": "W76-1 Mk4A",
+        "yield": {
+            "min": 100,
+            "max": 100
+        },
+        "type": "estimated"
+    },
+    "w88": {
+        "name": "W88 Mk5",
+        "yield": {
+            "min": 450,
+            "max": 475
+        },
+        "type": "estimated"
+    },
+    "w80-1": {
+        "name": "W80 Mod 1",
+        "yield": {
+            "min": 5,
+            "max": 150
+        },
+        "type": "dial-a-yield"
+    },
+    "b61-7": {
+        "name": "B61 Mod 7",
+        "yield": {
+            "min": 10,
+            "max": 360
+        },
+        "type": "dial-a-yield"
+    },
+    "b61-11": {
+        "name": "B61 Mod 11",
+        "yield": {
+            "min": 400,
+            "max": 400
+        },
+        "type": "estimated"
+    },
+    "b83-1": {
+        "name": "B83 Mod 1",
+        "yield": {
+            "min": 5,
+            "max": 1200
+        },
+        "type": "dial-a-yield"
+    },
+    "b61-3": {
+        "name": "B61 Mod 3",
+        "yield": {
+            "min": 0.3, 
+            "max": 170
+        },
+        "type": "dial-a-yield"
+    },
+    "b61-4": {
+        "name": "B61 Mod 4",
+        "yield": {
+            "min": 0.3, 
+            "max": 170
+        },
+        "type": "dial-a-yield"
+    }
+}

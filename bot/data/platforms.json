@@ -1,0 +1,58 @@
+{
+    "triad": {
+        "icbm": {
+            "minuteman-iii": {
+                "name": "ICBM Launch Facility",
+                "type": "launch facility",
+                "manufacturer": "",
+                "count": 440,
+                "bases": [
+                    "malmstrom-afb", "minot-afb", "fewarren-afb"
+                ],
+                "weapons": [
+                    "minuteman-iii"
+                ]
+            }
+        },
+        "slbm": {
+            "ssbn-ohio": {
+                "name": "Ohio-class SSBN",
+                "type": "ballistic missile submarine",
+                "manufacturer": "general-dynamics",
+                "count": 14,
+                "bases": [
+                    "kitsap-nb", "kingsbay-nsb"
+                ],
+                "weapons": [
+                    "trident-ii-d5"
+                ]
+            }
+        },
+        "bomber": {
+            "b-52h": {
+                "name": "B-52H Stratofortress",
+                "type": "strategic bomber",
+                "manufacturer": "boeing",
+                "count": 44,
+                "bases": [
+                    "barksdale-afb", "minot-afb"
+                ],
+                "weapons": [
+                    "alcm"
+                ]
+            },
+            "b-2": {
+                "name": "B-2 Spirit",
+                "type": "strategic bomber",
+                "manufacturer": "northrop-grumman",
+                "count": 16, 
+                "bases": [
+                    "whiteman-afb"
+                ],
+                "weapons": [
+                    "b61-7", "b61-11", "b83-1"
+                ]
+            }
+        }
+    }
+}

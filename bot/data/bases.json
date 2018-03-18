@@ -1,0 +1,51 @@
+{
+    "malmstrom-afb": {
+        "name": "Malmstrom Air Force Base",
+        "city": "Great Falls",
+        "county": "Cascade",
+        "state": "MT",
+        "branch": "US Air Force"
+    }, 
+    "minot-afb": {
+        "name": "Minot Air Force Base",
+        "city": "Minot",
+        "county": "Ward",
+        "state": "ND",
+        "branch": "US Air Force"
+    },
+    "fewarren-afb": {
+        "name": "F.E. Warren Air Force Base",
+        "city": "Cheyenne",
+        "county": "Laramie",
+        "state": "WY",
+        "branch": "US Air Force"
+    },
+    "barksdale-afb": {
+        "name": "Barksdale Air Force Base",
+        "city": "Bossier City",
+        "county": "Bossier Parish",
+        "state": "LA",
+        "branch": "US Air Force"
+    },
+    "whiteman-afb": {
+        "name": "Whiteman Air Force Base",
+        "city": "Knob Noster",
+        "county": "Johnson",
+        "state": "MO",
+        "branch": "US Air Force"
+    },
+    "kitsap-nb": {
+        "name": "Naval Base Kitsap",
+        "city": "Bremerton",
+        "county": "Kitsap",
+        "state": "WA",
+        "branch": "US Navy"
+    },
+    "kingsbay-nsb": {
+        "name": "Naval Submarine Base Kings Bay",
+        "city": "St. Marys",
+        "county": "Camden",
+        "state": "GA",
+        "branch": "US Navy"
+    }
+}
