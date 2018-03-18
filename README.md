@@ -36,8 +36,12 @@ I reached out to the author of NUKEMAP, [Dr. Alex Wellerstein](http://blog.nucle
 
 In the code hosted on this repo, I've .gitignore'd the nukeeffects.js library and disabled the request calls to the API resource. Instead, I've just used hardcoded values for the nuclear blast effects in order to still generate a final image.
 
-Also, you'll need to add a config.js file with your own token keys for Twitter and Mapbox. If you don't plan on tweeting, you can skip the Twitter tokens but you'll need your own [Mapbox token](https://www.mapbox.com/help/how-access-tokens-work/) to use the Mapbox Static API.
+### HOW TO RUN THE CODE
 
+Follow the steps below to run locally!
+
+* Download the project code.
+* Add a config.js file.
 ~~~~
 module.exports = {
   mapbox_token: '[MAPBOX_TOKEN]',
@@ -47,6 +51,17 @@ module.exports = {
   twitter_access_token_secret: '[TWITTER_ACCES_TOKEN_SECRET]'
 }
 ~~~~
+You can skip the Twitter tokens but you'll need your own [Mapbox token](https://www.mapbox.com/help/how-access-tokens-work/) to use the Mapbox Static API.
+
+* Edit the image.js module. 
+~~~~
+var minimap_mapbox_style = '[MAPBOX_MAP_STYLE_ID]';
+var minimap_icon_url = '[CUSTOM_MARKER_URL]'
+~~~~
+You'll need to set your own [Mapbox map style (or use a template)](https://www.mapbox.com/help/studio-manual-styles/) and a custom marker URL if needed. The current marker URL is hosted on Imgur so you can leave that if you want.
+
+* Run the bot! 
+~~~~ node index.js ~~~~
 
 ### SO WHAT IS A BROKEN ARROW?
 
