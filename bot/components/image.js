@@ -9,6 +9,11 @@ module.exports = {
 
 function Image () {
 
+    // Edit these variables for a custom Mapbox map style or 
+    // a custom marker URL!
+    var minimap_mapbox_style = 'cjbt1fizea8ae2tjqqbv3neyn';
+    var minimap_icon_url = 'https%3A%2F%2Fi.imgur.com%2FCUnT5Eh.png'
+
     this.access_token = config['mapbox_token'];
     this.getMap = getMap;
     this.setCoordinatesAndBlast = setCoordinatesAndBlast;
@@ -99,7 +104,7 @@ function Image () {
     };
 
     this.minimap = {
-        style: 'cjbt1fizea8ae2tjqqbv3neyn',
+        style: minimap_mapbox_style,
         zoom: 3.5,
         center: {lat: 39, lng: -96},
         size: '1000x600',
@@ -107,7 +112,7 @@ function Image () {
         width: 350,
         filepath: 'tmp/minimap.png',
         dot: {
-            url: 'https%3A%2F%2Fi.imgur.com%2FCUnT5Eh.png'
+            url: minimap_icon_url
         },
         image: null
     };
