@@ -6,13 +6,20 @@
 
 ### BROKEN ARROW BOT
 
+![](twitter-profile.png)
+[@brokenarrowbot](https://twitter.com/brokenarrowbot)
+
+The bot uses basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/) to randomly generate a 'Broken Arrow' event for a nuclear weapon. A location in the continental United States is picked at random and a nuclear explosion is simulated by calculating the blast radii of various nuclear effects (overpressure, thermal radiation, etc). All of this information is used to generate an image and text that is then tweeted out by the bot.
+
+![](broken-arrow-tweet.png)
+
 ### HOW DOES IT WORK?
 
-The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp). It relies on the Mapbox Static API to generate a [satellite imagery](https://www.mapbox.com/api-documentation/#maps) file and a [map image with a custom style and marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style).
+The heart of this Twitter bot is a dynamic image generator that uses the Node-based image processing library [Jimp](https://github.com/oliver-moran/jimp). It relies on the Mapbox Static API to generate a [satellite imagery](https://www.mapbox.com/api-documentation/#maps) file for the baser layer and a [map image with a custom style and marker](https://www.mapbox.com/api-documentation/#retrieve-a-static-map-from-a-style) for a minimap. Other custom-made images, icons and text are dynamically layered to build up a final composite image.
 
-It also has a hard-coded set of data files that describe basic technical details of the [US Nuclear Triad](https://armscontrolcenter.org/factsheet-the-nuclear-triad/), which are used to randomly select a combination of realistic platforms, weapons, warheads and payloads. 
+![](broken-arrow-image.png)
 
-A random latitude/longitude coordinate in the continental United States is then generated, and a satellite image of that location is used as the base image layer. 
+The breakdown below shows the sequentially layered stack of images/icons/text, all combined using Jimp! 
 
 ![](images/broken-arrow-breakdown.png)
 
@@ -41,7 +48,9 @@ This project was inspired by the website [NUKEMAP](https://nuclearsecrecy.com/nu
 
 ![](images/nukemap.png)
 
-Created by [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), a science and nuclear weapons historian and assistant professor, NUKEMAP is one of the few resources I've found online that is aimed at showing people the real world impact of nuclear weapons.
+Created by [Dr. Alex Wellerstein](http://blog.nuclearsecrecy.com/about-me/), a science and nuclear weapons historian and assistant professor, NUKEMAP is one of the few resources I've found online that is aimed at showing people the real world impact of nuclear weapons. 
+
+I created Broken Arrow Bot partly to teach myself more about how NUKEMAP works, but also partly to try and make nuclear weapons, and their sense of scale and destruction, a little less arcane. 
 
 ### PERMISSIONS
 
