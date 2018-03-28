@@ -8,7 +8,7 @@ The Broken Arrow Bot ([@brokenarrowbot](https://twitter.com/brokenarrowbot)) use
 
 <img src="images/broken-arrow-tweet.png" width="400px;"/>
 
-### WHY DID YOU MAKE THIS?
+### WHY DID I MAKE THIS?
 
 In the past year, I had my first ever nightmare about a nuclear apocalypse in my city. Surely a person in modern society doesn't worry about these things, I thought? And yet, the ever-present news of recent geopolitical events had found its way into my subconscious, causing me to experience real fear about the nuclear threat. If I was having these fears and dreams, surely others must be too?
 
